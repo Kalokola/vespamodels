@@ -162,7 +162,6 @@ def customer(request):
         buffer.close()
         graphic = base64.b64encode(image_png)
         graphic = graphic.decode('utf-8')
-        fig.close()
         plt.close()
         #plt.clf()
 
