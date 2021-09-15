@@ -60,6 +60,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.media',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -68,6 +69,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'model_project.wsgi.application'
 
@@ -132,4 +134,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 import django_heroku
 django_heroku.settings(locals())
 
-
+MEDIA_URL = '/media/' # new
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))

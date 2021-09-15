@@ -29,13 +29,22 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav text-light">
                 <li class="nav-item">
-                <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+                    <a class="nav-link" href="{% url 'shop' %}">Shop</a>
                 </li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'customer' %}">Customer</a>
-                </li>   
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'upload_image' %}">Upload</a>
+                </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'predict' %}">PIFD</a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" target="blank" href="http://127.0.0.1:8051">Store</a>
+                </li> 
             </ul>
             </div>  
         </nav>

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 class="text text-center display-5 font-weight-bold">Product Image Fraud Detection</h3>
+            <hr class="pb-3">
+            <form class="form-group" id="myForm" action="{% url 'predict' %}" method="POST">{% csrf_token %}
+                <div class="container pb-4">
+                    <div class="form-row">
+                        <div class="col">
+                        </div>
+                        <div class="col">
+                            <h5 class="text" style="color: blue;">Select Your Image Label</h5>
+                            <select class="form-control" style="width: 200px; height: 30px;" id="mydet" name="mydet" required>
+                                {% for det in detects %}
+                                <option required>{{ det.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container pb-1">
+                    <button class="btn btn-primary btn-block" onclick="submitForm()">DETECT</button>
+                </div>
+                        
+                {% if results %}
+                    <div class="container " style="background-color: aliceblue;">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalLong">
+                            Findings
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="text text-center font-weight-bold">Analysis Results</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">RELATED</th>
+                                            <th scope="col">PROBABILITY</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for key, val in data.items %}
+                                            <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ key }}</td>
+                                            <td>{{ val }}</td>
+                                            </tr>
+                                            {% endfor%}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        {% if results %}
+        <div id="isplayed" class="col-lg-6 justify-content-center">
+            <p class="text-center text-info font-weight-bold">RESULTS</p> 
+            <p class="display-4 text-center font-weight-bold">{{ detected|title }} ({{ confidence }}%)</p>
+        <div>
+        {% else %}
+            <div id="isplayed" class="col-lg-6 justify-content-center">
+                <p class="display-4 p-3">Your Results will appear here .....</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script>
+	function submitForm(){
+		kalo = document.getElementById("myForm");
+		var kalo;
+		kalo.submit();
+	}
+</script>
+
+{% endblock content %}

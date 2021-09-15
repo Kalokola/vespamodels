@@ -72,8 +72,8 @@ def shop(request):
         p3 = beta.pdf(x, p3l, p3d)
         p4 = beta.pdf(x, p4l, p4d)
         plt.plot(x, p1, "b-", x, p2, f"r-*", x, p3, "g*",x, p4,'m+')
-        plt.xlabel('Values of Random Variables', fontsize='15')
-        plt.ylabel('Probability', fontsize='15')
+        plt.xlabel('Probability', fontsize='15')
+        plt.ylabel('Density', fontsize='15')
         buffer = BytesIO()
         plt.savefig(buffer, format='png')
         buffer.seek(0)
@@ -177,3 +177,60 @@ def vespa(request):
     template = 'vespa.html'
     context = {'Shopps': 'Vespas', 'choices' :['Shops','Customers']}
     return render(request, template, context)
+
+
+
+import keras
+from keras.preprocessing import image
+from keras.applications import imagenet_utils
+import tensorflow
+import os.path
+from model_project.settings import  MEDIA_ROOT
+
+from django.conf import settings
+from .models import Detection
+def object_predict(request):
+    detects = Detection.objects.all()
+    if request.method == 'POST':
+        imname = str(request.POST.get('mydet'))
+        imageurl = str(Detection.objects.filter(name=imname).first().image.url)[13:]
+        mobile = tensorflow.keras.applications.mobilenet.MobileNet()
+        def prepare_image(file):
+            img_path = MEDIA_ROOT + '\\images\\'
+            img = image.load_img(img_path + file, target_size=(224, 224))
+            img_array = image.img_to_array(img)
+            img_array_expanded_dims = np.expand_dims(img_array, axis=0)
+            return keras.applications.mobilenet.preprocess_input(img_array_expanded_dims)
+    
+        preprocessed_image = prepare_image(f'{imageurl}')
+        predictions = mobile.predict(preprocessed_image)
+        results = imagenet_utils.decode_predictions(predictions)
+
+        def modify(line):
+            import re
+            line = re.sub('[_]', ' ', line)
+            return line.title()
+        analysis = {}
+        for i in range(0, len(results[0])):
+            analysis[modify(results[0][i][1])] = results[0][i][2]
+        confidence = str(int(round(float(list(analysis.values())[0]), 2)*100))
+        detected = list(analysis.keys())[0]
+        context = {'data': analysis, 'detects':detects, 'results':True ,'detected':detected, 'confidence': confidence}
+    else:
+        context = {'detects':detects, 'results': False}
+    template = 'predict.html'
+    return render(request, template, context)
+
+
+from django.shortcuts import render, redirect
+from .forms import *
+def upload_image(request):
+    if request.method == 'POST':
+        form = DetectionForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('predict')
+    else:
+        form = DetectionForm()
+    return render(request, 'input.html', {'form' : form})
