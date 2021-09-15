@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4" >
+    <p class="display-3 font-weight-bold text-center p-4">Team Vespa Model</p>
+    <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col">
+            <a href="{% url 'shop' %}" class="form-control btn btn-outline-info">Shops</a>
+        </div>
+        <div class="col">
+            <a href="{% url 'customer' %}" class="form-control btn btn-outline-info">Customers</a>
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+
+    <div class="row justify-content-center p-4">
+            <ul  class="d-flex mt-2" style="list-style-type:circle; padding-left: -20px;">
+                <li  style="padding-right: 20px;">Ashura</li>
+                <li style="padding-right: 20px;">Elizabeth</li>
+                <li style="padding-right: 20px;">Dorothy</li>
+                <li style="padding-right: 20px;">Kalokola</li>
+            </ul>
+    </div>
+</div>
+{% endblock content %}

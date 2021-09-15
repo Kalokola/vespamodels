@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 class="text text-center display-3 font-weight-bold">Shops</h3>
+            <hr>
+            <form class="form-group" id="myForm" action="{% url 'shop' %}" method="POST">{% csrf_token %}
+                <div class="container pb-2">
+                    <div>
+                        <h5 class="text text-center" style="color: blue;">Product 1</h5>
+                    </div>
+                    <div class="form-row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Likes" name="p1likes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Dislikes" name="p1dislikes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Orders" name="p1orders" required>
+                            </div>
+                    </div>
+                </div>
+                <div class="container pb-2">
+                    <div>
+                        <h5 class="text text-center" style="color: red;">Product 2</h5>
+                    </div>
+                    <div class="form-row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Likes" value=26 name="p2likes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Dislikes" value=7 name="p2dislikes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Orders"  value=10 name="p2orders" required>
+                            </div>
+                    </div>
+                </div>
+                <div class="container pb-2">
+                    <div>
+                        <h5 class="text text-center" style="color: green;">Product 3</h5>
+                    </div>
+                    <div class="form-row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Likes" value=16 name="p3likes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Dislikes" value=2 name="p3dislikes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Orders" value=26 name="p3orders" required>
+                            </div>
+                    </div>
+                </div>
+                <div class="container pb-4">
+                    <div>
+                        <h5 class="text text-center" style="color: magenta;">Product 4</h5>
+                    </div>
+                    <div class="form-row">
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Likes" value=16 name="p4likes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Dislikes" value=4 name="p4dislikes" required>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" placeholder="Orders" value=56 name="p4orders" required>
+                            </div>
+                    </div>
+                </div>
+                <div class="container pb-1">
+                    <button class="btn btn-primary btn-block" type="submit">RECOMMEND</button>
+                </div>
+                        
+                {% if results %}
+                    <div class="container " style="background-color: aliceblue;">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#exampleModalLong">
+                            See Results
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="text text-center font-weight-bold">Shop Recommendations</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                      <table class="table">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">PRODUCT</th>
+                                            <th scope="col">RECOMMEND</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for key, val in data.items %}
+                                          <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ key }}</td>
+                                            <td>{{ val }}</td>
+                                          </tr>
+                                          {% endfor%}
+                                        </tbody>
+                                      </table>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        {% if results %}
+            <div id="displayed" class="col-lg-6 justify-content-center">
+                <h4 class="text text-primary text-center font-weight-bold">BETA DISTRIBUTION</h4>
+                <img style="height: 300px; width: 450px; margin-top: -7px;" src="data:image/png;base64,{{ graphic|safe }}">
+            </div>
+        {% else %}
+            <div id="isplayed" class="col-lg-6 justify-content-center">
+                <p class="text text-center text-info display-4">Fill & Hit <strong>RECOMMEND</strong></p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
