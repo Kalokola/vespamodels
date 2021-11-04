@@ -186,9 +186,9 @@ from keras.applications import imagenet_utils
 import tensorflow
 import os.path
 from model_project.settings import  MEDIA_ROOT
-
+img_path = MEDIA_ROOT + '\\images\\'
 from django.conf import settings
-from .models import Detection
+from .models import Detection, Categorise
 def object_predict(request):
     detects = Detection.objects.all()
     if request.method == 'POST':
@@ -215,6 +215,11 @@ def object_predict(request):
             analysis[modify(results[0][i][1])] = results[0][i][2]
         confidence = str(int(round(float(list(analysis.values())[0]), 2)*100))
         detected = list(analysis.keys())[0]
+
+        if Categorise.objects.filter(name=detected).exists():
+            flag =  'Reject'
+        else:
+            flag = 'Allow'
         context = {'data': analysis, 'detects':detects, 'results':True ,'detected':detected, 'confidence': confidence}
     else:
         context = {'detects':detects, 'results': False}
