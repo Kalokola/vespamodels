@@ -7,3 +7,5 @@ shows the back end working mechanism of the Vespa Stores
 -> Customer - Age Group Visualisations as a basis for showing Recommendation System Algorithms like Collaborative Filtering, Content Based Recommendations & Multi Armed Bandit Algorithm.
 
 -> Product Image Fraud Detection by fine tunning Keras lightweight deep learning model called MobileNet 72MB trained on 17M objects.
+
+Our Ecommerce model as deployed here: [https://vespas.herokuapp.com/]{Vespa Stores}, the neural net put is available locally after downlading the code. Heroku supports a slug size less than 500MiBs
