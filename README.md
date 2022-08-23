@@ -1,11 +1,39 @@
-﻿# DLAB Vespa Project
-# Ashura, Elizabeth, Dorothy, Kalokola
-shows the back end working mechanism of the Vespa Stores 
+﻿<samp>
 
--> Generative Model (Shop Recommendation basing on likes, dislikes and orders.)
+# [Vespa Stores](http://vespas.herokuapp.com/shop/)
 
--> Customer - Age Group Visualisations as a basis for showing Recommendation System Algorithms like Collaborative Filtering, Content Based Recommendations & Multi Armed Bandit Algorithm.
+[![Made in Tanzania](https://img.shields.io/badge/made%20in-tanzania-008751.svg?style=flat-square)](https://github.com/Tanzania-Developers-Community/made-in-tanzania)
 
--> Product Image Fraud Detection by fine tunning Keras lightweight deep learning model called MobileNet 72MB trained on 17M objects.
+This deployment is a part of the dlab bootcamp project, we explored recommendation systems in ecommerce stores and built a web store. Features supported are the Recommendar Sytems for Customer Side and Shop Side.
 
-Our Ecommerce model as deployed here: [Vespa Store Model](https://vespas.herokuapp.com/), the neural net put is available locally after downlading the code. Heroku supports a slug size less than 500MiBs
+## NB
+The neural net part isn't included the app since heroku  supports a slug size less than 500MiBs, including the neural net part peaks up to 1023MiBs.
+
+## Ho to use locally.
+```bash
+$ git clone https://github.com/kalokola/vespamodels.git
+$ cd vespamodels
+$ pip3 install -r requiremnets.txt
+$ python3 manage.py runserver
+```
+You can now view the local project on your device at [127.0.0.1:8000](http://127.0.0.1:8000/)
+
+
+# Customer Side
+This part shows how algorithms recommend product to users basing on their age at their first login. **Age Group Visualisations** are shown on the graphs. 
+
+
+
+# Shop Side.
+- A beta distribution was used to sort and suggest products on the home feed line basing on popularity of products and user generated data like number of likes and dislikes per product.
+
+- Also, used content based approach to filter the comments on a given post to extract useful informations for recommendation like age group, seasons, locality, positivity of feedacks.
+
+- This part had a Product Image Fraud Detection where we fine tunned a Keras lightweight deep learning model called MobileNet 72MB trained on 17M objects. This helped suspend accounts in our e-commerce store incase they upload products that they havent subscribed to post in te store for instance if a grocery store uploads a gun. They are suspended.
+
+# Deployed on Heroku.
+[![Deployed](https://www.herokucdn.com/deploy/button.svg)](http://vespas.herokuapp.com/shop/)
+
+1. [kalokola](https://github.com/kalokola)
+2. Ashura, Elizabeth, Dorothy, Kalokola
+</samp>
