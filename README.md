@@ -31,9 +31,11 @@ This part shows how algorithms recommend product to users basing on their age at
 
 - This part had a Product Image Fraud Detection where we fine tunned a Keras lightweight deep learning model called MobileNet 72MB trained on 17M objects. This helped suspend accounts in our e-commerce store incase they upload products that they havent subscribed to post in te store for instance if a grocery store uploads a gun. They are suspended.
 
-# Deployed on Heroku.
-[🌐](http://vespas.herokuapp.com/shop/)
+## Access: [vespas](http://vespas.herokuapp.com/shop/)
 
+
+## Credits
 1. [kalokola](https://github.com/kalokola)
 2. Ashura, Elizabeth, Dorothy, Kalokola
+3. DLAB Staff and Inspired Ideas
 </samp>
