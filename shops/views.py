@@ -82,7 +82,7 @@ def shop(request):
         graphic = base64.b64encode(image_png)
         graphic = graphic.decode('utf-8')
         plt.close()
-        #plt.clf()
+        
         context = {'graphic': graphic, 'results':True, 'data': recoms, 'title':'Shop Recommendation.'}
     else:
         context = {'title':'Shop Recommendation.'}
